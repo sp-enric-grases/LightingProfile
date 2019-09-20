@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154155637170a114496cd6bd827bc19f, type: 3}
+  m_Name: LIGHT_Global
+  m_EditorClassIdentifier: 
+  skybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  sourceLighting: 0
+  ambientSkyColor: {r: 1, g: 0.5962107, b: 0, a: 1}
+  ambientEquatorColor: {r: 0, g: 0.6132076, b: 0.48719582, a: 1}
+  ambientGroundColor: {r: 0, g: 0.14150941, b: 0.08862206, a: 1}
+  ambientIntensity: 2.92
+  defaultReflectionMode: 0
+  reflectionBounces: 2
+  reflectionIntensity: 0.327
+  customReflection: {fileID: 0}
+  defaultReflectionResolution: 4
+  reflectionResolution: 4
+  subtractiveShadowColor: {r: 0.44028127, g: 0.9622642, b: 0.5647718, a: 1}
+  fog: 1
+  fogMode: 1
+  fogColor: {r: 1, g: 0, b: 0.06987047, a: 1}
+  fogDensity: 0.1
+  fogStartDistance: -6.45
+  fogEndDistance: 13.78
+  flareFadeSpeed: 0
+  flareStrength: 0
+  haloStrength: 0
