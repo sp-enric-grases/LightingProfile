@@ -133,7 +133,7 @@ namespace SocialPoint.Art.LightingProfiles
             }
 
             Debug.Log("Applying TEMP profile");
-            tempLightingProfile.Apply();
+            tempLightingProfile.ApplyRenderSettings();
             return tempLightingProfile;
         }
 

@@ -58,20 +58,7 @@ namespace SocialPoint.Art.LightingProfiles
         static private float t_haloStrength;
         #endregion
 
-        public void Apply()
-        {
-            // Fun fact: reversing the order of the properties seems to fix a bug in 
-            // Unity that prevents certain values from updating correctly.
-            ApplyRenderSettings();
-
-            // Disclaimer: weird lighting stuff (specularity) is still happening, so
-            // let's try applying the render settings twice.
-            //
-            // QGM: If everything works, remove the line below
-            //ApplyRenderSettings();
-        }
-
-        private void ApplyRenderSettings()
+        public void ApplyRenderSettings()
         {
             RenderSettings.subtractiveShadowColor = subtractiveShadowColor;
             RenderSettings.skybox = skybox;

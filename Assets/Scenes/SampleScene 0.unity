@@ -435,12 +435,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c31d26e94a58d04f9e1b90f6a87e6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blendAllSettings: 1
-  switchSkybox: 1
+  blendAllSettings: 0
+  switchSkybox: 0
   useEnvLighting: 0
   useEnvReflection: 0
   useMixedLighting: 0
-  useFog: 0
+  useFog: 1
   useHalo: 0
   frameSkip: 0
   desiredProfileName: 

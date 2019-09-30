@@ -195,7 +195,7 @@ namespace SocialPoint.Art.LightingProfiles
                 // Unity leaves us no other way than to do this dirty trick.
                 Object renderSettings = Object.FindObjectOfType(typeof(RenderSettings));
                 Undo.RecordObject(renderSettings, "Apply lighting from profile to scene");
-                lp.Apply();
+                lp.ApplyRenderSettings();
                 // QGM: I think is not necessary.
                 //serializedObject.Update();
             }

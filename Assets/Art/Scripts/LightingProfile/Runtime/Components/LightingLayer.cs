@@ -19,19 +19,16 @@ namespace SocialPoint.Art.LightingProfiles
         public bool useFog = true;
         public bool useHalo = true;
         public int frameSkip = 0;
+        public string desiredProfileName;
+        public string currentProfileName;
+        public float blend = 0;
+        public bool showDebugLines = false;
+        public List<LightingVolume> volumes;
 
         private LightingProfile initialProfile;
         private LightingProfile temporalProfile;
         private LightingProfile currentProfile;
         private LightingProfile desireProfile;
-        public string desiredProfileName;
-        public string currentProfileName;
-
-        public float blend = 0;
-        
-        public bool showDebugLines = false;
-
-        public List<LightingVolume> volumes;
 
         private float blendTime = 0;
         private AnimationCurve curve;
@@ -44,21 +41,21 @@ namespace SocialPoint.Art.LightingProfiles
         {
             Instance = this;
 
-            CreateInitProfile();
-
-            currentProfile = ScriptableObject.CreateInstance<LightingProfile>();
-            temporalProfile = ScriptableObject.CreateInstance<LightingProfile>();
-            currentProfile.CopyFromCurrentScene();
+            SetProfiles();
 
             if (blendAllSettings)
                 switchSkybox = useEnvLighting = useEnvReflection = useMixedLighting = useFog = useHalo = true;
         }
 
-        internal void CreateInitProfile()
+        internal void SetProfiles()
         {
             Debug.Log("Copying init profile settings");
             initialProfile = ScriptableObject.CreateInstance<LightingProfile>();
             initialProfile.CopyFromCurrentScene();
+
+            currentProfile = ScriptableObject.CreateInstance<LightingProfile>();
+            temporalProfile = ScriptableObject.CreateInstance<LightingProfile>();
+            currentProfile.CopyFromCurrentScene();
         }
 
         void Update()
@@ -77,13 +74,13 @@ namespace SocialPoint.Art.LightingProfiles
             if (!hasToFade) return;
 
             counter += Time.deltaTime / blendTime;
-
-            temporalProfile.Lerp(currentProfile, desireProfile, curve.Evaluate(counter), switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo);
-            temporalProfile.Apply();
+            blend = curve.Evaluate(counter);
+            temporalProfile.Lerp(currentProfile, desireProfile, blend, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo);
+            temporalProfile.ApplyRenderSettings();
 
             if (counter > 1)
             {
-                counter = 0;
+                counter = blend = 0;
                 hasToFade = false;
                 currentProfile.CopyFromCurrentScene();
                 currentProfileName = desireProfile.name;
@@ -95,7 +92,7 @@ namespace SocialPoint.Art.LightingProfiles
         private void OnDestroy()
         {
             Debug.Log("Settings initial lighting profile");
-            initialProfile.Apply();
+            initialProfile.ApplyRenderSettings();
         }
 
         internal void Register(LightingVolume volume)
@@ -117,7 +114,6 @@ namespace SocialPoint.Art.LightingProfiles
             if (isGlobal) GetHigherGlobalProfile();
         }
 
-
         public void GetHigherGlobalProfile()
         {
             if (ListOfVolumesIsEmpty()) return;
@@ -135,10 +131,6 @@ namespace SocialPoint.Art.LightingProfiles
                 LightingVolume v = globalVolumes.OrderBy(p => p.priority).Last();
 
                 desireProfile = v.profile;
-
-                //if (desireProfile == v.profile) return;
-
-                //temporalProfile = currentProfile;
                 desiredProfileName = v.profile.name;
                 blendTime = v.timeToBlend;
                 curve = v.timeCurve;
