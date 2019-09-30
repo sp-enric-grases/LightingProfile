@@ -14,18 +14,18 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
-  m_FogColor: {r: 0.13394445, g: 0.429211, b: 0.8113208, a: 1}
-  m_FogMode: 2
-  m_FogDensity: 0.18
+  m_Fog: 0
+  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.1
   m_LinearFogStart: 0
   m_LinearFogEnd: 0.01
-  m_AmbientSkyColor: {r: 0.231, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.11764706, g: 0.5019608, b: 0.5019608, a: 1}
   m_AmbientGroundColor: {r: 0.029411765, g: 0.1254902, b: 0.1254902, a: 1}
   m_AmbientIntensity: 0
-  m_AmbientMode: 1
-  m_SubtractiveShadowColor: {r: 0.5882353, g: 0.8509804, b: 0.8328119, a: 0}
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 0}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0
   m_FlareStrength: 0
@@ -71,7 +71,7 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-    m_MixedBakeMode: 2
+    m_MixedBakeMode: 1
     m_BakeBackend: 1
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -285,7 +285,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6.33e-43, y: 1.9402587e-12, z: 6.33e-43, w: 1.3738447e-25}
+  m_BoundingSphereOverride: {x: 7.6e-44, y: -3.9433503e-20, z: 4.5904e-41, w: NaN}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -312,7 +312,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 871552367}
-  - component: {fileID: 871552368}
   m_Layer: 0
   m_Name: Scenario
   m_TagString: Untagged
@@ -340,20 +339,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &871552368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871552366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b47ddcef63465f449a9a97cf8ce96501, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad1: SampleScene 1
-  sceneToLoad2: SampleScene 2
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,82 +436,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blendAllSettings: 1
-  switchSkybox: 0
-  useEnvLighting: 1
+  switchSkybox: 1
+  useEnvLighting: 0
   useEnvReflection: 0
-  useMixedLighting: 1
+  useMixedLighting: 0
   useFog: 0
   useHalo: 0
   frameSkip: 0
-  currentProfile: {fileID: 0}
-  desireProfile: {fileID: 0}
+  desiredProfileName: 
+  currentProfileName: 
   blend: 0
   showDebugLines: 0
   volumes: []
---- !u!1 &1001382281
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1001382284}
-  - component: {fileID: 1001382283}
-  - component: {fileID: 1001382282}
-  m_Layer: 0
-  m_Name: Lighting Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1001382282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001382281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b6b7d24cb878f4ea4295b93c83e656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 0
-  timeToBlend: 1
-  blendDistance: 6
-  priority: 0.9
-  profile: {fileID: 11400000, guid: 342b02353ad941d46b396c06d35a0e89, type: 2}
-  boxCollider: {fileID: 1001382283}
-  blendCollider: {fileID: 0}
---- !u!65 &1001382283
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001382281}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &1001382284
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001382281}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.6, y: 10.2, z: -19.1}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1137707724
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,70 +724,6 @@ Transform:
   m_Father: {fileID: 871552367}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1608460949
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1608460952}
-  - component: {fileID: 1608460951}
-  - component: {fileID: 1608460950}
-  m_Layer: 0
-  m_Name: Lighting Volume (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1608460950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608460949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b6b7d24cb878f4ea4295b93c83e656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 0
-  timeToBlend: 1
-  blendDistance: 2
-  priority: 0
-  profile: {fileID: 11400000, guid: cad3c09e5ea098949ae160ca99c9c337, type: 2}
-  boxCollider: {fileID: 1608460951}
-  blendCollider: {fileID: 0}
---- !u!65 &1608460951
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608460949}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &1608460952
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608460949}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16, y: 6.5, z: -18}
-  m_LocalScale: {x: 4, y: 1.45, z: 3.36}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1696846815
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +756,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGlobal: 1
   timeToBlend: 1
-  blendDistance: 4.58
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  blendDistance: 8.05
   priority: 0
   profile: {fileID: 11400000, guid: 342b02353ad941d46b396c06d35a0e89, type: 2}
   boxCollider: {fileID: 1696846817}

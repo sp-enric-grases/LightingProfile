@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 154155637170a114496cd6bd827bc19f, type: 3}
-  m_Name: LIGHT_ColorRed
+  m_Name: LIGHT_ColorYellow
   m_EditorClassIdentifier: 
-  skybox: {fileID: 2100000, guid: 9cf492d26ccc6244b8d09f098df6dbb0, type: 2}
+  skybox: {fileID: 2100000, guid: 2376fe32a63d18a4b8737fb33497252c, type: 2}
   sourceLighting: 1
-  ambientSkyColor: {r: 1, g: 0.29803923, b: 0.29803923, a: 1}
-  ambientEquatorColor: {r: 1, g: 0, b: 0, a: 1}
-  ambientGroundColor: {r: 0.3773585, g: 0, b: 0, a: 1}
+  ambientSkyColor: {r: 1, g: 0.9297494, b: 0.2980392, a: 1}
+  ambientEquatorColor: {r: 1, g: 0.88550174, b: 0, a: 1}
+  ambientGroundColor: {r: 0.3764706, g: 0.36110872, b: 0, a: 1}
   ambientIntensity: 0
   defaultReflectionMode: 0
-  reflectionBounces: 1
-  reflectionIntensity: 0
+  reflectionBounces: 4
+  reflectionIntensity: 0.388
   customReflection: {fileID: 0}
-  defaultReflectionResolution: 4
-  reflectionResolution: 4
-  subtractiveShadowColor: {r: 0.8490566, g: 0.58873266, b: 0.58873266, a: 0}
+  defaultReflectionResolution: 6
+  reflectionResolution: 6
+  subtractiveShadowColor: {r: 0.8419831, g: 0.8509804, b: 0.5882353, a: 0}
   fog: 1
-  fogMode: 2
-  fogColor: {r: 0.7264151, g: 0.11307406, b: 0.11307406, a: 1}
+  fogMode: 1
+  fogColor: {r: 0.98188305, g: 1, b: 0, a: 1}
   fogDensity: 0.1
   fogStartDistance: -40.84
   fogEndDistance: 48.54

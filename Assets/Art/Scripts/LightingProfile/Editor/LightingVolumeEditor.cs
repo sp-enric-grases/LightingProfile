@@ -34,7 +34,7 @@ namespace SocialPoint.Art.LightingProfiles
             {
                 content = new GUIContent("Blend Time", "Time to blend between two global lighting profiles.");
                 lv.timeToBlend = Mathf.Clamp(EditorGUILayout.FloatField(content, lv.timeToBlend), 0.001f, 100);
-                //lv.timeCurve = EditorGUILayout.CurveField("  ", lv.timeCurve, Color.yellow, new Rect(0, 0, 1, 1));
+                lv.timeCurve = EditorGUILayout.CurveField("  ", lv.timeCurve, Color.yellow, new Rect(0, 0, 1, 1));
             }
             else
             {

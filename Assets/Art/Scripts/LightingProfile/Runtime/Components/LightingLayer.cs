@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 namespace SocialPoint.Art.LightingProfiles
@@ -24,11 +22,11 @@ namespace SocialPoint.Art.LightingProfiles
 
         private LightingProfile initialProfile;
         private LightingProfile temporalProfile;
-        public LightingProfile currentProfile;
-        public LightingProfile desireProfile;
+        private LightingProfile currentProfile;
+        private LightingProfile desireProfile;
+        public string desiredProfileName;
+        public string currentProfileName;
 
-        public string currentProfileName { get { return currentProfile == null ? "---" : Path.GetFileNameWithoutExtension(AssetDatabase.GetAssetPath(currentProfile)); } }
-        public string desiredProfileName { get { return desireProfile == null ? "---" : Path.GetFileNameWithoutExtension(AssetDatabase.GetAssetPath(desireProfile)); } }
         public float blend = 0;
         
         public bool showDebugLines = false;
@@ -36,6 +34,7 @@ namespace SocialPoint.Art.LightingProfiles
         public List<LightingVolume> volumes;
 
         private float blendTime = 0;
+        private AnimationCurve curve;
         private float counter = 0;
         private bool hasToFade = false;
 
@@ -47,21 +46,20 @@ namespace SocialPoint.Art.LightingProfiles
 
             CreateInitProfile();
 
+            currentProfile = ScriptableObject.CreateInstance<LightingProfile>();
+            temporalProfile = ScriptableObject.CreateInstance<LightingProfile>();
+            currentProfile.CopyFromCurrentScene();
+
             if (blendAllSettings)
-            {
-                switchSkybox = true;
-                useEnvLighting = true;
-                useEnvReflection = true;
-                useMixedLighting = true;
-                useFog = true;
-                useHalo = true;
-            }
+                switchSkybox = useEnvLighting = useEnvReflection = useMixedLighting = useFog = useHalo = true;
         }
 
-        //private void OnEnable()
-        //{
-        //    GetHigherGlobalProfile();
-        //}
+        internal void CreateInitProfile()
+        {
+            Debug.Log("Copying init profile settings");
+            initialProfile = ScriptableObject.CreateInstance<LightingProfile>();
+            initialProfile.CopyFromCurrentScene();
+        }
 
         void Update()
         {
@@ -80,15 +78,17 @@ namespace SocialPoint.Art.LightingProfiles
 
             counter += Time.deltaTime / blendTime;
 
-            temporalProfile.Lerp(currentProfile, desireProfile, counter, true, true, true, true, true, true);
+            temporalProfile.Lerp(currentProfile, desireProfile, curve.Evaluate(counter), switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo);
             temporalProfile.Apply();
 
             if (counter > 1)
             {
                 counter = 0;
                 hasToFade = false;
-                currentProfile = desireProfile;
+                currentProfile.CopyFromCurrentScene();
+                currentProfileName = desireProfile.name;
                 desireProfile = null;
+                desiredProfileName = "---";
             }
         }
 
@@ -117,14 +117,6 @@ namespace SocialPoint.Art.LightingProfiles
             if (isGlobal) GetHigherGlobalProfile();
         }
 
-        internal void CreateInitProfile()
-        {
-            Debug.Log("Copying init profile settings");
-            initialProfile = ScriptableObject.CreateInstance<LightingProfile>();
-            temporalProfile = ScriptableObject.CreateInstance<LightingProfile>();
-            initialProfile.CopyFromCurrentScene();
-            currentProfile = initialProfile;
-        }
 
         public void GetHigherGlobalProfile()
         {
@@ -141,10 +133,15 @@ namespace SocialPoint.Art.LightingProfiles
             if (globalVolumes.Count > 0)
             {
                 LightingVolume v = globalVolumes.OrderBy(p => p.priority).Last();
-                //if (desireProfile == v.profile) return;
-                
+
                 desireProfile = v.profile;
+
+                //if (desireProfile == v.profile) return;
+
+                //temporalProfile = currentProfile;
+                desiredProfileName = v.profile.name;
                 blendTime = v.timeToBlend;
+                curve = v.timeCurve;
                 hasToFade = true;
             }
             else

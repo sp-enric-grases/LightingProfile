@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154155637170a114496cd6bd827bc19f, type: 3}
   m_Name: LIGHT_ColorGreen
   m_EditorClassIdentifier: 
-  skybox: {fileID: 0}
+  skybox: {fileID: 2100000, guid: 3d877b6036ec5434fb0623f3902b226c, type: 2}
   sourceLighting: 1
   ambientSkyColor: {r: 0.66071, g: 1, b: 0.2980392, a: 1}
   ambientEquatorColor: {r: 0.0036325455, g: 0.804, b: 0, a: 1}
@@ -22,7 +22,7 @@ MonoBehaviour:
   reflectionBounces: 1
   reflectionIntensity: 0
   customReflection: {fileID: 0}
-  defaultReflectionResolution: 16
+  defaultReflectionResolution: 4
   reflectionResolution: 4
   subtractiveShadowColor: {r: 0.5882353, g: 0.8509804, b: 0.7825299, a: 0}
   fog: 1

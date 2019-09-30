@@ -25,7 +25,7 @@ namespace SocialPoint.Art.LightingProfiles
             Section("Lighting Blending Settings", SectionBlendings);
             Section("Optimization", SectionOptimization);
             Section("Status", SectionStatus);
-            if (ll.volumes.Count > 0)
+            if (ll.volumes.Count > 0 && ll.volumes != null)
                 Section("Volumes", SectionVolumes);
 
             if (EditorGUI.EndChangeCheck())

@@ -9,7 +9,7 @@ namespace SocialPoint.Art.LightingProfiles
     {
         public bool isGlobal = false;
         public float timeToBlend = 1;
-        //public AnimationCurve timeCurve = AnimationCurve.Linear(0, 0, 1, 1);
+        public AnimationCurve timeCurve = AnimationCurve.Linear(0, 0, 1, 1);
         public float blendDistance = 0f;
         public float priority = 0f;
         public LightingProfile profile;

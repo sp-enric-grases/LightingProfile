@@ -1,45 +1,39 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Assertions;
 
 namespace SocialPoint.Art.LightingProfiles
 {
     [CreateAssetMenu(fileName = "LIGHT_newLightingProfile.asset", menuName = "Social Point/Art/Lighting Profile", order = -10)]
     public class LightingProfile : ScriptableObject
     {
-        public enum PowerOfTwo { _16, _32, _64, _128, _256, _512, _1024, _2048, _4096}
-        // The next enumerator coincides with the Unity.Rendering.AmbientMode enumerator
+        // The next enumerator coincides with the Unity.Rendering.AmbientMode enumerator since Unity doesn't provide us of a enumerator to set the Environment Lighting Source
         // The values are Skybox = 0, Trilight = 1, Flat = 3
         public enum SourceLighting { Skybox = 0, Gradient = 1, Color = 3 }
+        public enum PowerOfTwo { _16, _32, _64, _128, _256, _512, _1024, _2048, _4096 }
         public Material skybox;
-
         public SourceLighting sourceLighting = SourceLighting.Skybox;
         public Color ambientSkyColor;
         public Color ambientEquatorColor;
         public Color ambientGroundColor;
         public float ambientIntensity;
-        
         public DefaultReflectionMode defaultReflectionMode = DefaultReflectionMode.Skybox;
         public int reflectionBounces;
         public float reflectionIntensity;
         public Cubemap customReflection;
         public int defaultReflectionResolution;
         public PowerOfTwo reflectionResolution = PowerOfTwo._256;
-
         public Color subtractiveShadowColor;
-
         public bool fog;
         public FogMode fogMode = FogMode.Linear;
         public Color fogColor;
         public float fogDensity;
         public float fogStartDistance;
         public float fogEndDistance;
-
         public float flareFadeSpeed;
         public float flareStrength;
         public float haloStrength;
 
-        #region TEMPORAL VARIABLES
+        #region TEMPORAL VARIABLES TO COPY & PASTE BETWEEN PROFILES
         static private Material t_skybox;
         static private SourceLighting t_sourceLighting;
         static private Color t_ambientSkyColor;
@@ -74,7 +68,7 @@ namespace SocialPoint.Art.LightingProfiles
             // let's try applying the render settings twice.
             //
             // QGM: If everything works, remove the line below
-            ApplyRenderSettings();
+            //ApplyRenderSettings();
         }
 
         private void ApplyRenderSettings()
@@ -195,81 +189,69 @@ namespace SocialPoint.Art.LightingProfiles
         }
         #endregion
 
-        /// <summary>
-        /// WARNING: some settings can be lerped, but other might make no sense when lerped, e.g., ambientMode or defaultReflectionResolution.
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="blend">Must range from 0 to 1</param>
-        /// <param name="affectSkybox"></param>
-        /// <param name="interpolateAmbient"></param>
-        /// <param name="interpolateReflection"></param>
-        /// <param name="interpolateFog"></param>
         public void Lerp(LightingProfile current, LightingProfile source, float blend, bool switchSkybox, bool useEnvLighting, bool useEnvReflection, bool useMixedLighting, bool useFog, bool useHalo)
         {
-            //if (interpolateAmbient)
-            {
-                ambientEquatorColor = Color.Lerp(current.ambientEquatorColor, source.ambientEquatorColor, blend);
-                ambientGroundColor = Color.Lerp(current.ambientGroundColor, source.ambientGroundColor, blend);
-                ambientIntensity = Mathf.Lerp(current.ambientIntensity, source.ambientIntensity, blend);
-                ambientSkyColor = Color.Lerp(current.ambientSkyColor, source.ambientSkyColor, blend);
-            }            
+            if (switchSkybox)       SetSkybox(current, source);
+            if (useEnvLighting)     SetEnvironmentLighting(current, source, blend);
+            if (useEnvReflection)   SetEnvironmentReflections(current, source, blend);
+            if (useFog)             SetFog(current, source, blend);
+            if (useHalo)            SetHalo(current, source, blend);
+            if (useMixedLighting)   SetMixedLighting(current, source, blend);
+        }
 
-            if (useFog)
+        private void SetSkybox(LightingProfile current, LightingProfile source)
+        {
+            if (skybox != source.skybox)
             {
-                // Enable fog if any of the two use it.
-                fog = fog || source.fog;
+                skybox = source.skybox;
+                Debug.Log("Changing skybox...");
+            }
+        }
 
-                fogColor = Color.Lerp(current.fogColor, source.fogColor, blend);
-                fogDensity = Mathf.Lerp(current.fogDensity, source.fogDensity, blend);
-                fogEndDistance = Mathf.Lerp(current.fogEndDistance, source.fogEndDistance, blend);
-                fogStartDistance = Mathf.Lerp(current.fogStartDistance, source.fogStartDistance, blend);
+        private void SetEnvironmentLighting(LightingProfile current, LightingProfile source, float blend)
+        {
+            if (sourceLighting != source.sourceLighting)
+            {
+                sourceLighting = source.sourceLighting;
+                Debug.Log("Changing Source Environment Lighting...");
             }
 
-            if (useHalo)
-            {
-                flareFadeSpeed = Mathf.Lerp(current.flareFadeSpeed, source.flareFadeSpeed, blend);
-                flareStrength = Mathf.Lerp(current.flareStrength, source.flareStrength, blend);
-                haloStrength = Mathf.Lerp(current.haloStrength, source.haloStrength, blend);
-            }
+            ambientEquatorColor = Color.Lerp(current.ambientEquatorColor, source.ambientEquatorColor, blend);
+            ambientGroundColor = Color.Lerp(current.ambientGroundColor, source.ambientGroundColor, blend);
+            ambientIntensity = Mathf.Lerp(current.ambientIntensity, source.ambientIntensity, blend);
+            ambientSkyColor = Color.Lerp(current.ambientSkyColor, source.ambientSkyColor, blend);
+        }
 
-            //if (interpolateReflection)
-            {
-                reflectionIntensity = Mathf.Lerp(current.reflectionIntensity, source.reflectionIntensity, blend);
-            }
+        private void SetEnvironmentReflections(LightingProfile current, LightingProfile source, float blend)
+        {
+            if (customReflection != source.customReflection) customReflection = source.customReflection;
+            if (defaultReflectionMode != source.defaultReflectionMode) defaultReflectionMode = source.defaultReflectionMode;
+            if (defaultReflectionResolution != source.defaultReflectionResolution) defaultReflectionResolution = source.defaultReflectionResolution;
+            if (reflectionBounces != source.reflectionBounces) reflectionBounces = source.reflectionBounces;
 
+            reflectionIntensity = Mathf.Lerp(current.reflectionIntensity, source.reflectionIntensity, blend);
+        }
+
+        private void SetFog(LightingProfile current, LightingProfile source, float blend)
+        {
+            fog = source.fog;
+            fogMode = source.fogMode;
+            fogColor = Color.Lerp(current.fogColor, source.fogColor, blend);
+            fogDensity = Mathf.Lerp(current.fogDensity, source.fogDensity, blend);
+            fogEndDistance = Mathf.Lerp(current.fogEndDistance, source.fogEndDistance, blend);
+            fogStartDistance = Mathf.Lerp(current.fogStartDistance, source.fogStartDistance, blend);
+        }
+
+        private void SetMixedLighting(LightingProfile current, LightingProfile source, float blend)
+        {
             subtractiveShadowColor = Color.Lerp(current.subtractiveShadowColor, source.subtractiveShadowColor, blend);
+        }
 
-            // TODO: if trying to lerp between different modes (reflection, fog, etc.), show an error or handle it.
-            // QGM: I guess this is fixed with the code below.
-
-            // For the following settings, we pick the value of the profile with more weight in the interpolation.
-            // This values can't be interpolated by a lerp function because they are integers, enums and cubemaps.
-
-            //if (blend > 0.5f)
-            {
-                //if (interpolateAmbient)
-                {
-                    sourceLighting = source.sourceLighting;
-                }
-
-                //if (interpolateReflection)
-                {
-                    customReflection = source.customReflection;
-                    defaultReflectionMode = source.defaultReflectionMode;
-                    defaultReflectionResolution = source.defaultReflectionResolution;
-                    reflectionBounces = source.reflectionBounces;
-                }
-
-                //if (interpolateFog)
-                {
-                    fogMode = source.fogMode;
-                }
-
-                //if (affectSkybox)
-                {
-                    skybox = source.skybox;
-                }
-            }
+        private void SetHalo(LightingProfile current, LightingProfile source, float blend)
+        {
+            flareFadeSpeed = Mathf.Lerp(current.flareFadeSpeed, source.flareFadeSpeed, blend);
+            flareStrength = Mathf.Lerp(current.flareStrength, source.flareStrength, blend);
+            haloStrength = Mathf.Lerp(current.haloStrength, source.haloStrength, blend);
         }
     }
 }

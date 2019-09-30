@@ -647,10 +647,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGlobal: 1
-  timeToBlend: 4
+  timeToBlend: 2
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   blendDistance: 0
   priority: 10.61
-  profile: {fileID: 11400000, guid: 8208f1bb7be29344fa165ace4f4759fd, type: 2}
+  profile: {fileID: 11400000, guid: 42b1c9a6cedd93d4293779c23ae60bf7, type: 2}
   boxCollider: {fileID: 1800488896}
   blendCollider: {fileID: 0}
 --- !u!65 &1800488896
@@ -804,9 +828,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGlobal: 1
   timeToBlend: 4
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   blendDistance: 0
   priority: 2.59
-  profile: {fileID: 11400000, guid: f312d7869ca6a3d4a960ffb3d42974e2, type: 2}
+  profile: {fileID: 11400000, guid: 3e82eab5228e5c04b9c7dc38be554d04, type: 2}
   boxCollider: {fileID: 1951359509}
   blendCollider: {fileID: 0}
 --- !u!65 &1951359509

@@ -179,7 +179,7 @@ namespace SocialPoint.Art.LightingProfiles
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
 
-            if (GUILayout.Button("Copy FROM current scene\n(Bake first if needed!)", GUILayout.Height(40), GUILayout.MinWidth(180)))
+            if (GUILayout.Button("Copy FROM current scene)", GUILayout.Height(40), GUILayout.MinWidth(180)))
             {
                 Undo.RecordObject(lp, "Copy lighting from scene to profile");
                 lp.CopyFromCurrentScene();
