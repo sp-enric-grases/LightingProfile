@@ -62,8 +62,7 @@ namespace SocialPoint.Art.LightingProfiles
         {
             FadeGlobalSettings();
 
-            //if (Time.frameCount % (frameSkip + 1) != 0)
-            //    return;
+            
 
             //LightingBlendingManager.instance.UpdateLightingSettings(transform.position, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo, showDebugLines);
             //blend = LightingBlendingManager.instance.GetBlendValue();
@@ -74,19 +73,34 @@ namespace SocialPoint.Art.LightingProfiles
             if (!hasToFade) return;
 
             counter += Time.deltaTime / blendTime;
-            blend = curve.Evaluate(counter);
-            temporalProfile.Lerp(currentProfile, desireProfile, blend, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo);
-            temporalProfile.ApplyRenderSettings();
 
-            if (counter > 1)
+            if (GetFrameSkip())
             {
-                counter = blend = 0;
-                hasToFade = false;
-                currentProfile.CopyFromCurrentScene();
-                currentProfileName = desireProfile.name;
-                desireProfile = null;
-                desiredProfileName = "---";
+                blend = curve.Evaluate(counter);
+                temporalProfile.Lerp(currentProfile, desireProfile, blend, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo);
+                temporalProfile.ApplyRenderSettings();
+
+                if (counter > 1)
+                    ResetTemporalProfile();
             }
+        }
+
+        private bool GetFrameSkip()
+        {
+            if (frameSkip > 0)
+                return Time.frameCount % (frameSkip + 1) == 0;
+            else
+                return true;
+        }
+
+        private void ResetTemporalProfile()
+        {
+            counter = blend = 0;
+            hasToFade = false;
+            currentProfile.CopyFromCurrentScene();
+            currentProfileName = desireProfile.name;
+            desireProfile = null;
+            desiredProfileName = "---";
         }
 
         private void OnDestroy()
