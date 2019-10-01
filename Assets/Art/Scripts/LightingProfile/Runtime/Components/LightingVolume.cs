@@ -78,17 +78,33 @@ namespace SocialPoint.Art.LightingProfiles
         
         void OnEnable()
         {
-            //if (!isRegistered)
+            try
+            {
                 LightingLayer.Instance.Register(this);
-            //previousLayer = gameObject.layer;
-            //isRegistered = false;
+            }
+            catch
+            {
+                ShowLightingLayerError();
+            }
         }
 
         void OnDisable()
         {
-            LightingLayer.Instance.Unregister(this);
+            try
+            {
+                LightingLayer.Instance.Unregister(this);
+            }
+            catch
+            {
+                ShowLightingLayerError();
+            }
         }
         
+        private void ShowLightingLayerError()
+        {
+            Debug.LogWarning("No Lighting Layer detected in the scene. Please ensure you have at least one gameobject with a Lighting Layer component.");
+        }
+
         void Update()
         {
             //if(priority != previousPriority)
