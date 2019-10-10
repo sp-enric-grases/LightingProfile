@@ -20,21 +20,21 @@ public class TestLoadingScene : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad0)) ManageScene(KeyCode.Keypad0);
-        if (Input.GetKeyDown(KeyCode.Keypad1)) ManageScene(KeyCode.Keypad1);
-        if (Input.GetKeyDown(KeyCode.Keypad2)) ManageScene(KeyCode.Keypad2);
-        if (Input.GetKeyDown(KeyCode.Keypad3)) ManageScene(KeyCode.Keypad3);
-        if (Input.GetKeyDown(KeyCode.Keypad4)) ManageScene(KeyCode.Keypad4);
-        if (Input.GetKeyDown(KeyCode.Keypad5)) ManageScene(KeyCode.Keypad5);
-        if (Input.GetKeyDown(KeyCode.Keypad6)) ManageScene(KeyCode.Keypad6);
-        if (Input.GetKeyDown(KeyCode.Keypad7)) ManageScene(KeyCode.Keypad7);
-        if (Input.GetKeyDown(KeyCode.Keypad8)) ManageScene(KeyCode.Keypad8);
-        if (Input.GetKeyDown(KeyCode.Keypad9)) ManageScene(KeyCode.Keypad9);
+        if (Input.GetKeyDown(KeyCode.Alpha0)) ManageScene(KeyCode.Alpha0);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ManageScene(KeyCode.Alpha1);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) ManageScene(KeyCode.Alpha2);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) ManageScene(KeyCode.Alpha3);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) ManageScene(KeyCode.Alpha4);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) ManageScene(KeyCode.Alpha5);
+        if (Input.GetKeyDown(KeyCode.Alpha6)) ManageScene(KeyCode.Alpha6);
+        if (Input.GetKeyDown(KeyCode.Alpha7)) ManageScene(KeyCode.Alpha7);
+        if (Input.GetKeyDown(KeyCode.Alpha8)) ManageScene(KeyCode.Alpha8);
+        if (Input.GetKeyDown(KeyCode.Alpha9)) ManageScene(KeyCode.Alpha9);
     }
 
     private void ManageScene(KeyCode code)
     {
-        int i = (int)code - (int)KeyCode.Keypad0;
+        int i = (int)code - (int)KeyCode.Alpha0;
         Debug.Log(i);
 
         if (scenes[i].state)
