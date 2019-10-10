@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LIGHT_Black
   m_EditorClassIdentifier: 
   skybox: {fileID: 0}
-  sourceLighting: 3
+  sourceLighting: 0
   ambientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   ambientEquatorColor: {r: 0.11764706, g: 0.5019608, b: 0.5019608, a: 1}
   ambientGroundColor: {r: 0.029411765, g: 0.1254902, b: 0.1254902, a: 1}

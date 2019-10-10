@@ -134,7 +134,7 @@ namespace SocialPoint.Art.LightingProfiles
                     GUILayout.FlexibleSpace();
                     EditorGUILayout.LabelField((ll.volumes[i].isGlobal ? "Global" : "Blend"), GUILayout.Width(60));
                     GUILayout.FlexibleSpace();
-                    EditorGUILayout.LabelField((ll.volumes[i].isGlobal ? ll.volumes[i].timeToBlend.ToString() : ll.volumes[i].blendDistance.ToString()), GUILayout.Width(100));
+                    EditorGUILayout.LabelField((ll.volumes[i].isGlobal ? ll.volumes[i].timeToBlend.ToString() : ll.volumes[i].blendDist.ToString()), GUILayout.Width(100));
                     GUILayout.FlexibleSpace();
                     EditorGUILayout.LabelField(ll.volumes[i].priority.ToString(), GUILayout.Width(60));
                     GUILayout.FlexibleSpace();

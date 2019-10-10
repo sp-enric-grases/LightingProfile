@@ -150,20 +150,20 @@ namespace SocialPoint.Art.LightingProfiles
 
             foreach (var v in volumes)
             {
-                Vector3 blendClosestPoint = v.blendCollider.ClosestPoint(worldPosition);
+                Vector3 blendClosestPoint = v.blendCol.ClosestPoint(worldPosition);
                 if (showDebugLines) Debug.DrawLine(worldPosition, blendClosestPoint, Color.red);
 
                 if ((blendClosestPoint - worldPosition).magnitude > 0)
                 {
-                    Vector3 volumeClosestPoint = v.boxCollider.ClosestPoint(blendClosestPoint);
+                    Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
                     if (showDebugLines) Debug.DrawLine(blendClosestPoint, volumeClosestPoint, Color.green);
                 }
                 else
                 {
-                    Vector3 volumeClosestPoint = v.boxCollider.ClosestPoint(blendClosestPoint);
+                    Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
                     if (showDebugLines) Debug.DrawLine(worldPosition, volumeClosestPoint, Color.yellow);
 
-                    blend = Mathf.Clamp01((volumeClosestPoint - worldPosition).magnitude / v.blendDistance);
+                    blend = Mathf.Clamp01((volumeClosestPoint - worldPosition).magnitude / v.blendDist);
                     //tempLightingProfile.Lerp(v.profile, blend, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo);
                     //tempLightingProfile.Apply();
                 }

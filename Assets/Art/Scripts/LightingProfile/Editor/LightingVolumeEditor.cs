@@ -39,7 +39,7 @@ namespace SocialPoint.Art.LightingProfiles
             else
             {
                 content = new GUIContent("Blend Distance", "The distance (from the attached Collider) to start blending from. A value of 0 means there will be no blending and the Volume overrides will be applied immediatly upon entry to the attached Collider.");
-                lv.blendDistance = Mathf.Clamp(EditorGUILayout.FloatField(content, lv.blendDistance), 0, Mathf.Infinity);
+                lv.blendDist = Mathf.Clamp(EditorGUILayout.FloatField(content, lv.blendDist), 0, Mathf.Infinity);
             }
 
             content = new GUIContent("Priority", "The volume priority in the stack. A higher value means higher priority. Negative values are supported.");

@@ -61,9 +61,6 @@ namespace SocialPoint.Art.LightingProfiles
         void Update()
         {
             FadeGlobalSettings();
-
-            
-
             //LightingBlendingManager.instance.UpdateLightingSettings(transform.position, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo, showDebugLines);
             //blend = LightingBlendingManager.instance.GetBlendValue();
         }
