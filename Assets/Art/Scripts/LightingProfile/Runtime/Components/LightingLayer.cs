@@ -56,6 +56,7 @@ namespace SocialPoint.Art.LightingProfiles
             currentProfile = ScriptableObject.CreateInstance<LightingProfile>();
             temporalProfile = ScriptableObject.CreateInstance<LightingProfile>();
             currentProfile.CopyFromCurrentScene();
+            temporalProfile.CopyFromCurrentScene();
         }
 
         void Update()
@@ -68,6 +69,8 @@ namespace SocialPoint.Art.LightingProfiles
         private void FadeGlobalSettings()
         {
             if (!hasToFade) return;
+
+            Debug.Log("Is fading...");
 
             counter += Time.deltaTime / blendTime;
 
