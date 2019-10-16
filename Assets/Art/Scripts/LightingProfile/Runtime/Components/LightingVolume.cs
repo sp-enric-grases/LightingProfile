@@ -8,6 +8,7 @@ namespace SocialPoint.Art.LightingProfiles
     [DisallowMultipleComponent]
     public class LightingVolume : MonoBehaviour
     {
+        public bool current = false;
         public bool isGlobal = false;
         public float timeToBlend = 1;
         public AnimationCurve timeCurve = AnimationCurve.Linear(0, 0, 1, 1);
@@ -46,7 +47,7 @@ namespace SocialPoint.Art.LightingProfiles
 
         public BoxCollider boxCol;
         public BoxCollider blendCol;
-        private LightingProfile internalProfile;
+        //private LightingProfile internalProfile;
 
         private void Start()
         {
@@ -70,10 +71,10 @@ namespace SocialPoint.Art.LightingProfiles
             return (lossyScale * colScale + blend * 2 ) / lossyScale;
         }
 
-        public bool HasInstantiatedProfile()
-        {
-            return internalProfile != null;
-        }
+        //public bool HasInstantiatedProfile()
+        //{
+        //    return internalProfile != null;
+        //}
         
         void OnEnable()
         {

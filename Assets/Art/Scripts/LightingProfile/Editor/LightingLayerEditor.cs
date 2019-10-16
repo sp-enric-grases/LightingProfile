@@ -126,21 +126,33 @@ namespace SocialPoint.Art.LightingProfiles
             EditorGUILayout.EndHorizontal();
             DrawSeparator(Color.grey, 1, 4, 28);
 
-            for (int i = 0; i < ll.volumes.Count; i++)
+            for (int v = 0; v < ll.volumes.Count; v++)
             {
-                EditorGUILayout.BeginHorizontal();
-                {
-                    EditorGUILayout.LabelField(ll.volumes[i].gameObject.name, GUILayout.Width(180));
-                    GUILayout.FlexibleSpace();
-                    EditorGUILayout.LabelField((ll.volumes[i].isGlobal ? "Global" : "Blend"), GUILayout.Width(60));
-                    GUILayout.FlexibleSpace();
-                    EditorGUILayout.LabelField((ll.volumes[i].isGlobal ? ll.volumes[i].timeToBlend.ToString() : ll.volumes[i].blendDist.ToString()), GUILayout.Width(100));
-                    GUILayout.FlexibleSpace();
-                    EditorGUILayout.LabelField(ll.volumes[i].priority.ToString(), GUILayout.Width(60));
-                    GUILayout.FlexibleSpace();
-                }
-                EditorGUILayout.EndHorizontal();
+                if (ll.volumes[v].current)
+                    DrawVolumeProperites(true, Color.yellow, v);
+                else
+                    DrawVolumeProperites(false, Color.white, v);
             }
+        }
+
+        private void DrawVolumeProperites(bool current, Color color, int v)
+        {
+            GUI.color = color;
+
+            if (current)
+                EditorGUILayout.BeginHorizontal("BOX");
+            else
+                EditorGUILayout.BeginHorizontal();
+
+            EditorGUILayout.LabelField(ll.volumes[v].gameObject.name, GUILayout.Width(180));
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField((ll.volumes[v].isGlobal ? "Global" : "Blend"), GUILayout.Width(60));
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField((ll.volumes[v].isGlobal ? ll.volumes[v].timeToBlend.ToString() : ll.volumes[v].blendDist.ToString()), GUILayout.Width(100));
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField(ll.volumes[v].priority.ToString(), GUILayout.Width(60));
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
         }
     }
 }

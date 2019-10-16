@@ -8,6 +8,7 @@ public class TestLoadingScene : MonoBehaviour
     public class SceneState
     {
         public string scene;
+        [HideInInspector]
         public bool state;
     }
 
@@ -35,7 +36,6 @@ public class TestLoadingScene : MonoBehaviour
     private void ManageScene(KeyCode code)
     {
         int i = (int)code - (int)KeyCode.Alpha0;
-        Debug.Log(i);
 
         if (scenes[i].state)
             SceneManager.UnloadSceneAsync(scenes[i].scene);

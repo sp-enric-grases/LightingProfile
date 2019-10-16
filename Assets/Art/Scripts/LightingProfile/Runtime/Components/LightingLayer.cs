@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ namespace SocialPoint.Art.LightingProfiles
         private AnimationCurve curve;
         private float counter = 0;
         private bool hasToFade = false;
+        private Coroutine checkVolumes;
 
         #endregion
 
@@ -59,18 +61,43 @@ namespace SocialPoint.Art.LightingProfiles
             temporalProfile.CopyFromCurrentScene();
         }
 
-        void Update()
+        void LateUpdate()
         {
-            FadeGlobalSettings();
+            CheckPosition();
+            //FadeGlobalSettings();
+            //FadeLocalVolume();
             //LightingBlendingManager.instance.UpdateLightingSettings(transform.position, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo, showDebugLines);
-            //blend = LightingBlendingManager.instance.GetBlendValue();
         }
+
+        private void CheckPosition()
+        {
+            foreach (var v in volumes)
+            {
+                if (v.isGlobal) continue;
+
+                Vector3 pos = transform.position;
+                Vector3 blendClosestPoint = v.blendCol.ClosestPoint(pos);
+
+                if (showDebugLines) Debug.DrawLine(pos, blendClosestPoint, Color.red);
+
+                if ((blendClosestPoint - pos).magnitude > 0)
+                {
+                    Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
+                    if (showDebugLines) Debug.DrawLine(blendClosestPoint, volumeClosestPoint, Color.green);
+                }
+                //else
+                //{
+                //    Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
+                //    if (showDebugLines) Debug.DrawLine(pos, volumeClosestPoint, Color.yellow);
+                //}
+            }
+        }
+
+        #region GLOBAL PROFILES
 
         private void FadeGlobalSettings()
         {
             if (!hasToFade) return;
-
-            Debug.Log("Is fading...");
 
             counter += Time.deltaTime / blendTime;
 
@@ -83,49 +110,6 @@ namespace SocialPoint.Art.LightingProfiles
                 if (counter > 1)
                     ResetTemporalProfile();
             }
-        }
-
-        private bool GetFrameSkip()
-        {
-            if (frameSkip > 0)
-                return Time.frameCount % (frameSkip + 1) == 0;
-            else
-                return true;
-        }
-
-        private void ResetTemporalProfile()
-        {
-            counter = blend = 0;
-            hasToFade = false;
-            currentProfile.CopyFromCurrentScene();
-            currentProfileName = desireProfile.name;
-            desireProfile = null;
-            desiredProfileName = "---";
-        }
-
-        private void OnDestroy()
-        {
-            Debug.Log("Settings initial lighting profile");
-            initialProfile.ApplyRenderSettings();
-        }
-
-        internal void Register(LightingVolume volume)
-        {
-            Debug.Log("<color=green>ADDING</color> New volume of type: " + (volume.isGlobal ? "GLOBAL" : "BLEND"));
-            volumes.Add(volume);
-            SetDirty(volume.isGlobal);
-        }
-
-        internal void Unregister(LightingVolume volume)
-        {
-            Debug.Log("<color=red>REMOVING</color> lighting volume of type: " + (volume.isGlobal ? "GLOBAL" : "BLEND"));
-            volumes.Remove(volume);
-            SetDirty(volume.isGlobal);
-        }
-
-        private void SetDirty(bool isGlobal)
-        {
-            if (isGlobal) GetHigherGlobalProfile();
         }
 
         public void GetHigherGlobalProfile()
@@ -157,6 +141,153 @@ namespace SocialPoint.Art.LightingProfiles
             }
         }
 
+        #endregion
+
+        #region LOCAL PROFILES
+
+        private void FadeLocalVolume()
+        {
+            foreach (var v in volumes)
+            {
+                Vector3 pos = v.transform.position;
+                Vector3 blendClosestPoint = v.blendCol.ClosestPoint(pos);
+
+                if (showDebugLines) Debug.DrawLine(pos, blendClosestPoint, Color.red);
+
+                if ((blendClosestPoint - pos).magnitude > 0)
+                {
+                    Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
+                    if (showDebugLines) Debug.DrawLine(blendClosestPoint, volumeClosestPoint, Color.green);
+                }
+                else
+                {
+                    Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
+                    if (showDebugLines) Debug.DrawLine(pos, volumeClosestPoint, Color.yellow);
+
+                    //blend = Mathf.Clamp01((volumeClosestPoint - pos).magnitude / v.blendDist);
+                }
+            }
+            //internal void UpdateLightingSettings(Vector3 worldPosition, bool switchSkybox, bool useEnvLighting, bool useEnvReflection, bool useMixedLighting, bool useFog, bool useHalo, bool showDebugLines)
+            //{
+            //    volumes = GetListOfBlendVolumes();
+
+            //    foreach (var v in volumes)
+            //    {
+            //        Vector3 blendClosestPoint = v.blendCol.ClosestPoint(worldPosition);
+            //        if (showDebugLines) Debug.DrawLine(worldPosition, blendClosestPoint, Color.red);
+
+            //        if ((blendClosestPoint - worldPosition).magnitude > 0)
+            //        {
+            //            Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
+            //            if (showDebugLines) Debug.DrawLine(blendClosestPoint, volumeClosestPoint, Color.green);
+            //        }
+            //        else
+            //        {
+            //            Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
+            //            if (showDebugLines) Debug.DrawLine(worldPosition, volumeClosestPoint, Color.yellow);
+
+            //            blend = Mathf.Clamp01((volumeClosestPoint - worldPosition).magnitude / v.blendDist);
+            //            //tempLightingProfile.Lerp(v.profile, blend, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo);
+            //            //tempLightingProfile.Apply();
+            //        }
+            //    }
+            //}
+
+        }
+
+        #endregion
+
+        #region COMMON METHODS
+
+        private bool GetFrameSkip()
+        {
+            if (frameSkip > 0)
+                return Time.frameCount % (frameSkip + 1) == 0;
+            else
+                return true;
+        }
+
+        private void ResetTemporalProfile()
+        {
+            counter = blend = 0;
+            hasToFade = false;
+            currentProfile.CopyFromCurrentScene();
+            currentProfileName = desireProfile.name;
+            desireProfile = null;
+            desiredProfileName = "---";
+        }
+
+        private void OnDestroy()
+        {
+            Debug.Log("Settings initial lighting profile");
+            initialProfile.ApplyRenderSettings();
+        }
+
+        internal void Register(LightingVolume volume)
+        {
+            Debug.Log("<color=green>ADDING</color> New volume of type: " + (volume.isGlobal ? "GLOBAL" : "BLEND"));
+            volumes.Add(volume);
+
+            if (checkVolumes == null)
+                checkVolumes = StartCoroutine(CheckVolumes());
+        }
+
+        internal void Unregister(LightingVolume volume)
+        {
+            Debug.Log("<color=red>REMOVING</color> lighting volume of type: " + (volume.isGlobal ? "GLOBAL" : "BLEND"));
+            volumes.Remove(volume);
+
+            if (checkVolumes == null)
+                checkVolumes = StartCoroutine(CheckVolumes());
+        }
+
+        internal IEnumerator CheckVolumes()
+        {
+            yield return new WaitForEndOfFrame();
+            GetCurrentVolume();
+            checkVolumes = null;
+        }
+
+        private void GetCurrentVolume()
+        {
+            if (ListOfVolumesIsEmpty()) return;
+
+            foreach (var v in volumes) v.current = false;
+
+            if (!LayerIsInsideBlendVolume())
+            {
+                if (CheckGlobalVolumes())
+                {
+                    LightingVolume vol = volumes.Where(l => l.isGlobal).OrderBy(l => l.priority).Last();
+                    vol.current = true;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("There is at least 1 blend volume in the scene and we're inside.");
+            }
+        }
+
+        private bool CheckGlobalVolumes()
+        {
+            return volumes.Where(l => l.isGlobal).Count() > 0;
+        }
+
+        private bool LayerIsInsideBlendVolume()
+        {
+            foreach (var v in volumes)
+            {
+                if (v.isGlobal) continue;
+
+                Vector3 pos = transform.position;
+                Vector3 blendClosestPoint = v.blendCol.ClosestPoint(pos);
+
+                if ((blendClosestPoint - pos).magnitude == 0) return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Return a warning if there are no lighting volumes in the scene
         /// </summary>
@@ -171,5 +302,7 @@ namespace SocialPoint.Art.LightingProfiles
 
             return false;
         }
+
+        #endregion
     }
 }
