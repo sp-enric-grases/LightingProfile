@@ -340,6 +340,95 @@ Transform:
   m_Father: {fileID: 871552367}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1345759959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1345759962}
+  - component: {fileID: 1345759961}
+  - component: {fileID: 1345759960}
+  m_Layer: 0
+  m_Name: Lighting Volume (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1345759960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345759959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b6b7d24cb878f4ea4295b93c83e656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current: 0
+  isGlobal: 0
+  timeToBlend: 1
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  blendDist: 4.72
+  priority: 2.27
+  profile: {fileID: 11400000, guid: 342b02353ad941d46b396c06d35a0e89, type: 2}
+  boxCol: {fileID: 1345759961}
+  blendCol: {fileID: 0}
+--- !u!65 &1345759961
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345759959}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1345759962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345759959}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.4, y: 5.55, z: -16.83}
+  m_LocalScale: {x: 10.38, y: 18.7, z: 12.17}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1400793009
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,6 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b6b7d24cb878f4ea4295b93c83e656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  current: 0
   isGlobal: 1
   timeToBlend: 4
   timeCurve:
@@ -580,11 +670,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  blendDistance: 0
+  blendDist: 0
   priority: 5.07
   profile: {fileID: 11400000, guid: f312d7869ca6a3d4a960ffb3d42974e2, type: 2}
-  boxCollider: {fileID: 1696846817}
-  blendCollider: {fileID: 0}
+  boxCol: {fileID: 0}
+  blendCol: {fileID: 0}
 --- !u!65 &1696846817
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -606,7 +696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696846815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 18.5, y: 0, z: -4.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

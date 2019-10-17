@@ -264,7 +264,21 @@ namespace SocialPoint.Art.LightingProfiles
             }
             else
             {
-                Debug.LogWarning("There is at least 1 blend volume in the scene and we're inside.");
+                List<LightingVolume> blendVolumes = volumes.Where(l => !l.isGlobal).ToList();
+
+                if (blendVolumes.Count == 0) return;
+
+                foreach (var v in blendVolumes.ToList())
+                {
+                    Vector3 pos = transform.position;
+                    Vector3 boxClosestPoint = v.boxCol.ClosestPoint(pos);
+
+                    if ((boxClosestPoint - pos).magnitude > 0)
+                        blendVolumes.Remove(v);
+                }
+
+                LightingVolume vol = blendVolumes.OrderBy(l => l.priority).Last();
+                vol.current = true;
             }
         }
 

@@ -114,13 +114,15 @@ namespace SocialPoint.Art.LightingProfiles
         {
             EditorGUILayout.BeginHorizontal();
             {
-                EditorGUILayout.LabelField("NAME", GUILayout.Width(180));
+                EditorGUILayout.LabelField("NAME", EditorStyles.miniLabel, GUILayout.Width(120));
                 GUILayout.FlexibleSpace();
-                EditorGUILayout.LabelField("TYPE", GUILayout.Width(60));
+                EditorGUILayout.LabelField("%", EditorStyles.miniLabel, GUILayout.Width(50));
                 GUILayout.FlexibleSpace();
-                EditorGUILayout.LabelField("BLEND/TIME", GUILayout.Width(100));
+                EditorGUILayout.LabelField("TYPE", EditorStyles.miniLabel, GUILayout.Width(50));
                 GUILayout.FlexibleSpace();
-                EditorGUILayout.LabelField("PRIOR", GUILayout.Width(60));
+                EditorGUILayout.LabelField("B/T", EditorStyles.miniLabel, GUILayout.Width(50));
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.LabelField("PRIOR", EditorStyles.miniLabel, GUILayout.Width(50));
                 GUILayout.FlexibleSpace();
             }
             EditorGUILayout.EndHorizontal();
@@ -144,13 +146,18 @@ namespace SocialPoint.Art.LightingProfiles
             else
                 EditorGUILayout.BeginHorizontal();
 
-            EditorGUILayout.LabelField(ll.volumes[v].gameObject.name, GUILayout.Width(180));
+            //if (GUILayout.Button(ll.volumes[v].gameObject.name, EditorStyles.miniLabel, GUILayout.Width(120)))
+            //    Selection.activeGameObject = ll.volumes[v].gameObject;
+
+            EditorGUILayout.LabelField(ll.volumes[v].gameObject.name, EditorStyles.miniLabel, GUILayout.Width(120));
             GUILayout.FlexibleSpace();
-            EditorGUILayout.LabelField((ll.volumes[v].isGlobal ? "Global" : "Blend"), GUILayout.Width(60));
+            EditorGUILayout.LabelField((ll.volumes[v].current ? "100" : "0"), EditorStyles.miniLabel, GUILayout.Width(50));
             GUILayout.FlexibleSpace();
-            EditorGUILayout.LabelField((ll.volumes[v].isGlobal ? ll.volumes[v].timeToBlend.ToString() : ll.volumes[v].blendDist.ToString()), GUILayout.Width(100));
+            EditorGUILayout.LabelField((ll.volumes[v].isGlobal ? "Global" : "Blend"), EditorStyles.miniLabel, GUILayout.Width(50));
             GUILayout.FlexibleSpace();
-            EditorGUILayout.LabelField(ll.volumes[v].priority.ToString(), GUILayout.Width(60));
+            EditorGUILayout.LabelField((ll.volumes[v].isGlobal ? ll.volumes[v].timeToBlend.ToString() : ll.volumes[v].blendDist.ToString()), EditorStyles.miniLabel, GUILayout.Width(50));
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField(ll.volumes[v].priority.ToString(), EditorStyles.miniLabel, GUILayout.Width(50));
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
         }
