@@ -358,7 +358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1400793010
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -675,6 +675,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   blendDist: 0
   priority: 10.61
+  blend: 0
   profile: {fileID: 11400000, guid: 42b1c9a6cedd93d4293779c23ae60bf7, type: 2}
   boxCol: {fileID: 1800488896}
   blendCol: {fileID: 0}

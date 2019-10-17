@@ -75,8 +75,16 @@ namespace SocialPoint.Art.LightingProfiles
 
         private void SectionOptimization()
         {
-            content = new GUIContent("Frame Skip", "This allows you to save performance by not updating the lighting every frame.");
-            ll.frameSkip = EditorGUILayout.IntSlider(content, ll.frameSkip, 0, 10);
+            float labelWidth = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = 210;
+
+            content = new GUIContent("Blend Every Frame", "This allows you to save performance by not updating the lighting every frame.");
+            ll.blendFrameSkip = EditorGUILayout.IntSlider(content, ll.blendFrameSkip, 0, 10);
+
+            content = new GUIContent("Check Volumes Every Frame", "This allows you to save performance by not checking the ligthing layer posision every frame.");
+            ll.volumesCheckFrameSkip = EditorGUILayout.IntSlider(content, ll.volumesCheckFrameSkip, 0, 60);
+
+            EditorGUIUtility.labelWidth = labelWidth;
         }
 
         private void SectionStatus()
@@ -99,7 +107,7 @@ namespace SocialPoint.Art.LightingProfiles
             EditorGUILayout.EndHorizontal();
             GUILayout.Space(2);
             
-            EditorGUILayout.Slider("Blend", ll.blend, 0, 1);
+            //EditorGUILayout.Slider("Blend", ll.blend, 0, 1);
             EditorGUI.EndDisabledGroup();
             GUILayout.Space(2);
             ll.showDebugLines = EditorGUILayout.Toggle("Show Debug Lines", ll.showDebugLines);
@@ -122,7 +130,7 @@ namespace SocialPoint.Art.LightingProfiles
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.LabelField("B/T", EditorStyles.miniLabel, GUILayout.Width(50));
                 GUILayout.FlexibleSpace();
-                EditorGUILayout.LabelField("PRIOR", EditorStyles.miniLabel, GUILayout.Width(50));
+                EditorGUILayout.LabelField("PR", EditorStyles.miniLabel, GUILayout.Width(50));
                 GUILayout.FlexibleSpace();
             }
             EditorGUILayout.EndHorizontal();
@@ -130,28 +138,27 @@ namespace SocialPoint.Art.LightingProfiles
 
             for (int v = 0; v < ll.volumes.Count; v++)
             {
-                if (ll.volumes[v].current)
-                    DrawVolumeProperites(true, Color.yellow, v);
-                else
-                    DrawVolumeProperites(false, Color.white, v);
+                //if (ll.volumes[v].current)
+                    DrawVolumeProperites(v); //true, Color.yellow, v);
+                //else
+                    //DrawVolumeProperites(false, Color.white, v);
             }
         }
 
-        private void DrawVolumeProperites(bool current, Color color, int v)
+        private void DrawVolumeProperites(int v)//bool current, Color color, int v)
         {
-            GUI.color = color;
+            float blend = (ll.volumes[v].blend / 100) + 0.5f;
 
-            if (current)
-                EditorGUILayout.BeginHorizontal("BOX");
-            else
-                EditorGUILayout.BeginHorizontal();
+            GUI.color = blend > 0 ? new Color(blend, blend, 0.5f) : Color.grey;
+            EditorGUILayout.BeginHorizontal("CN Box", GUILayout.MaxHeight(18));
 
+            GUI.color = ll.volumes[v].blend > 0 ? Color.yellow : Color.white;
             //if (GUILayout.Button(ll.volumes[v].gameObject.name, EditorStyles.miniLabel, GUILayout.Width(120)))
             //    Selection.activeGameObject = ll.volumes[v].gameObject;
 
             EditorGUILayout.LabelField(ll.volumes[v].gameObject.name, EditorStyles.miniLabel, GUILayout.Width(120));
             GUILayout.FlexibleSpace();
-            EditorGUILayout.LabelField((ll.volumes[v].current ? "100" : "0"), EditorStyles.miniLabel, GUILayout.Width(50));
+            EditorGUILayout.LabelField(ll.volumes[v].blend.ToString("0"), EditorStyles.miniLabel, GUILayout.Width(50));
             GUILayout.FlexibleSpace();
             EditorGUILayout.LabelField((ll.volumes[v].isGlobal ? "Global" : "Blend"), EditorStyles.miniLabel, GUILayout.Width(50));
             GUILayout.FlexibleSpace();

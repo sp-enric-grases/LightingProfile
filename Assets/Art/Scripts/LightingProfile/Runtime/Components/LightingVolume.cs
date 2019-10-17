@@ -8,46 +8,16 @@ namespace SocialPoint.Art.LightingProfiles
     [DisallowMultipleComponent]
     public class LightingVolume : MonoBehaviour
     {
-        public bool current = false;
         public bool isGlobal = false;
         public float timeToBlend = 1;
         public AnimationCurve timeCurve = AnimationCurve.Linear(0, 0, 1, 1);
         public float blendDist = 0f;
         public float priority = 0f;
+        public float blend = 0;
         public LightingProfile profile;
-
-        //public LightingProfile instance
-        //{
-        //    get
-        //    {
-        //        if(internalProfile == null)
-        //        {
-        //            if(profile != null)
-        //                internalProfile = ScriptableObject.Instantiate<LightingProfile>(profile);
-        //            else
-        //                internalProfile = ScriptableObject.CreateInstance<LightingProfile>();
-        //        }
-
-        //        return internalProfile;
-        //    }
-        //    set
-        //    {
-        //        internalProfile = value;
-        //    }
-        //}
-        //private bool isRegistered = false;
-
-        //internal LightingProfile profileRef
-        //{
-        //    get
-        //    {
-        //        return internalProfile == null ? profile : internalProfile;
-        //    }
-        //}
 
         public BoxCollider boxCol;
         public BoxCollider blendCol;
-        //private LightingProfile internalProfile;
 
         private void Start()
         {
@@ -71,11 +41,6 @@ namespace SocialPoint.Art.LightingProfiles
             return (lossyScale * colScale + blend * 2 ) / lossyScale;
         }
 
-        //public bool HasInstantiatedProfile()
-        //{
-        //    return internalProfile != null;
-        //}
-        
         void OnEnable()
         {
             StartCoroutine(Register());
@@ -97,15 +62,6 @@ namespace SocialPoint.Art.LightingProfiles
         private void ShowLightingLayerError()
         {
             Debug.LogWarning("No Lighting Layer detected in the scene. Please ensure you have at least one gameobject with a Lighting Layer component.");
-        }
-
-        void Update()
-        {
-            //if(priority != previousPriority)
-            //{
-            //    LightingBlendingManager.instance.SetDirty();
-            //    previousPriority = priority;
-            //}
         }
 
         void OnDrawGizmos()
