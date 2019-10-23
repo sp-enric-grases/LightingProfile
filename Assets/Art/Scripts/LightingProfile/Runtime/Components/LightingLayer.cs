@@ -67,8 +67,8 @@ namespace SocialPoint.Art.LightingProfiles
         void LateUpdate()
         {
             //CheckPosition();
-            BlendLightingSettings();
-            //FadeLocalVolume();
+            //BlendLightingSettings();
+            FadeLocalVolume();
             //LightingBlendingManager.instance.UpdateLightingSettings(transform.position, switchSkybox, useEnvLighting, useEnvReflection, useMixedLighting, useFog, useHalo, showDebugLines);
 
             //if (GetCheckVolumesFrame())
@@ -99,7 +99,6 @@ namespace SocialPoint.Art.LightingProfiles
             }
         }
 
-        #region GLOBAL PROFILES
 
         private void BlendLightingSettings()
         {
@@ -119,39 +118,6 @@ namespace SocialPoint.Art.LightingProfiles
                     ResetTemporalProfile();
             }
         }
-
-        //public void GetHigherGlobalProfile()
-        //{
-        //    if (ListOfVolumesIsEmpty()) return;
-
-        //    List<LightingVolume> globalVolumes = new List<LightingVolume>();
-
-        //    for (int i = 0; i < volumes.Count; i++)
-        //    {
-        //        if (volumes[i].isGlobal && volumes[i].profile != null)
-        //            globalVolumes.Add(volumes[i]);
-        //    }
-
-        //    if (globalVolumes.Count > 0)
-        //    {
-        //        LightingVolume v = globalVolumes.OrderBy(p => p.priority).Last();
-
-        //        desireProfile = v.profile;
-        //        desiredProfileName = v.profile.name;
-        //        blendTime = v.timeToBlend;
-        //        curve = v.timeCurve;
-        //        hasToFade = true;
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning("No global volumes found in the scene.");
-        //        hasToFade = false;
-        //    }
-        //}
-
-        #endregion
-
-        #region LOCAL PROFILES
 
         private void FadeLocalVolume()
         {
@@ -176,8 +142,6 @@ namespace SocialPoint.Art.LightingProfiles
                 }
             }
         }
-
-        #endregion
 
         #region COMMON METHODS
 

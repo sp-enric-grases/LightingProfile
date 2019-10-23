@@ -150,11 +150,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenes:
-  - scene: SampleScene 0 Green
+  - scene: SampleScene 1 Green
     state: 0
-  - scene: SampleScene 1 Blue
+  - scene: SampleScene 2 Blue
     state: 0
-  - scene: SampleScene 2 Red
+  - scene: SampleScene 3 Red
     state: 0
 --- !u!4 &1447936941
 Transform:
@@ -332,6 +332,31 @@ PrefabInstance:
         type: 3}
       propertyPath: volumesCheckFrameSkip
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408354619355885500, guid: 89ff52e923469cc469ba14e1d358fae9,
+        type: 3}
+      propertyPath: blendFrameSkip
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408354619355885500, guid: 89ff52e923469cc469ba14e1d358fae9,
+        type: 3}
+      propertyPath: blendAllSettings
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408354619355885500, guid: 89ff52e923469cc469ba14e1d358fae9,
+        type: 3}
+      propertyPath: useEnvLighting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408354619355885500, guid: 89ff52e923469cc469ba14e1d358fae9,
+        type: 3}
+      propertyPath: switchSkybox
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408354619355885500, guid: 89ff52e923469cc469ba14e1d358fae9,
+        type: 3}
+      propertyPath: showDebugLines
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ff52e923469cc469ba14e1d358fae9, type: 3}

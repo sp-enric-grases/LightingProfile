@@ -21,7 +21,7 @@ public class TestLoadingScene : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0)) ManageScene(KeyCode.Alpha0);
+        //if (Input.GetKeyDown(KeyCode.Alpha0)) ManageScene(KeyCode.Alpha0);
         if (Input.GetKeyDown(KeyCode.Alpha1)) ManageScene(KeyCode.Alpha1);
         if (Input.GetKeyDown(KeyCode.Alpha2)) ManageScene(KeyCode.Alpha2);
         if (Input.GetKeyDown(KeyCode.Alpha3)) ManageScene(KeyCode.Alpha3);
@@ -35,7 +35,7 @@ public class TestLoadingScene : MonoBehaviour
 
     private void ManageScene(KeyCode code)
     {
-        int i = (int)code - (int)KeyCode.Alpha0;
+        int i = (int)code - (int)KeyCode.Alpha1;
 
         if (scenes[i].state)
             SceneManager.UnloadSceneAsync(scenes[i].scene);
