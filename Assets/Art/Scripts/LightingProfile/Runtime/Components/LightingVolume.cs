@@ -16,13 +16,13 @@ namespace SocialPoint.Art.LightingProfiles
         public float blend = 0;
         public LightingProfile profile;
 
-        public BoxCollider boxCol;
-        public BoxCollider blendCol;
+        public BoxCollider innerCol;
+        public BoxCollider outherCol;
 
         private void Start()
         {
-            boxCol = GetComponent<BoxCollider>();
-            boxCol.isTrigger = true;
+            innerCol = GetComponent<BoxCollider>();
+            innerCol.isTrigger = true;
 
             CreateBlendCollider();
         }
@@ -31,9 +31,9 @@ namespace SocialPoint.Art.LightingProfiles
         {
             if (isGlobal) return;
 
-            blendCol = gameObject.AddComponent<BoxCollider>();
+            outherCol = gameObject.AddComponent<BoxCollider>();
             Vector3 scale = transform.lossyScale;
-            blendCol.size = new Vector3(GetFactor(scale.x, boxCol.size.x, blendDist), GetFactor(scale.y, boxCol.size.y, blendDist), GetFactor(scale.z, boxCol.size.z, blendDist));
+            outherCol.size = new Vector3(GetFactor(scale.x, innerCol.size.x, blendDist), GetFactor(scale.y, innerCol.size.y, blendDist), GetFactor(scale.z, innerCol.size.z, blendDist));
         }
 
         private float GetFactor(float lossyScale, float colScale, float blend)
@@ -73,9 +73,9 @@ namespace SocialPoint.Art.LightingProfiles
             var invScale = new Vector3(1f / scale.x, 1f / scale.y, 1f / scale.z);
             Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, scale);
 
-            boxCol = GetComponent<BoxCollider>();
-            Gizmos.DrawCube(boxCol.center, boxCol.size);
-            Gizmos.DrawWireCube(boxCol.center, boxCol.size + invScale * blendDist * 2f);
+            innerCol = GetComponent<BoxCollider>();
+            Gizmos.DrawCube(innerCol.center, innerCol.size);
+            Gizmos.DrawWireCube(innerCol.center, innerCol.size + invScale * blendDist * 2f);
         }
     }
 }

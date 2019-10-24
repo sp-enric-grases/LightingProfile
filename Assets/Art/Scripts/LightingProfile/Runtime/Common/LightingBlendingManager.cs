@@ -150,17 +150,17 @@ namespace SocialPoint.Art.LightingProfiles
 
             foreach (var v in volumes)
             {
-                Vector3 blendClosestPoint = v.blendCol.ClosestPoint(worldPosition);
+                Vector3 blendClosestPoint = v.outherCol.ClosestPoint(worldPosition);
                 if (showDebugLines) Debug.DrawLine(worldPosition, blendClosestPoint, Color.red);
 
                 if ((blendClosestPoint - worldPosition).magnitude > 0)
                 {
-                    Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
+                    Vector3 volumeClosestPoint = v.innerCol.ClosestPoint(blendClosestPoint);
                     if (showDebugLines) Debug.DrawLine(blendClosestPoint, volumeClosestPoint, Color.green);
                 }
                 else
                 {
-                    Vector3 volumeClosestPoint = v.boxCol.ClosestPoint(blendClosestPoint);
+                    Vector3 volumeClosestPoint = v.innerCol.ClosestPoint(blendClosestPoint);
                     if (showDebugLines) Debug.DrawLine(worldPosition, volumeClosestPoint, Color.yellow);
 
                     blend = Mathf.Clamp01((volumeClosestPoint - worldPosition).magnitude / v.blendDist);

@@ -22,13 +22,13 @@ MonoBehaviour:
   reflectionBounces: 1
   reflectionIntensity: 0
   customReflection: {fileID: 0}
-  defaultReflectionResolution: 4
+  defaultReflectionResolution: 16
   reflectionResolution: 4
   subtractiveShadowColor: {r: 0.5882353, g: 0.8509804, b: 0.8328119, a: 0}
   fog: 1
   fogMode: 2
-  fogColor: {r: 0.13394445, g: 0.429211, b: 0.8113208, a: 1}
-  fogDensity: 0.18
+  fogColor: {r: 0.4009434, g: 0.66065, b: 1, a: 1}
+  fogDensity: 0.05
   fogStartDistance: 0
   fogEndDistance: 0.01
   flareFadeSpeed: 0

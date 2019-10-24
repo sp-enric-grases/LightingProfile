@@ -188,7 +188,7 @@ namespace SocialPoint.Art.LightingProfiles
 
         private void SetSkybox(LightingProfile current, LightingProfile source)
         {
-            Debug.Log("<color=#FF8F00>Changing skybox...</color>");
+            //Debug.Log("<color=#FF8F00>Changing skybox...</color>");
             if (skybox != source.skybox)
             {
                 skybox = source.skybox;
@@ -198,7 +198,7 @@ namespace SocialPoint.Art.LightingProfiles
 
         private void SetEnvironmentLighting(LightingProfile current, LightingProfile source, float blend)
         {
-            Debug.Log("<color=#FF8F00>Changing Source Environment Lighting...</color>");
+            //Debug.Log("<color=#FF8F00>Changing Source Environment Lighting...</color>");
 
             if (sourceLighting != source.sourceLighting)
             {
